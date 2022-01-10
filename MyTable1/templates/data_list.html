@@ -1,0 +1,70 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+	<header class='header'>
+
+			<div id='logo'>
+				<a href='#'>AB TEST REAL</a>
+			</div>
+
+			<div id="search">
+				<input id="inp" type="search" placeholder="Search">
+
+			</div>
+	</header>
+<div id='inf'>Data has been successfully saved on {{now}} </div>
+<table>
+		<thead>
+			<tr>
+				<th>UserID</th>
+				<th>Registration Date</th>
+				<th>Last Activity Date</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for mydata in mydata_list %}
+			<tr class="ID1">
+				<td>{{ mydata.id }}</td>
+				<td>
+					{{ mydata.registration_date }}
+				</td>
+				<td>
+					{{ mydata.last_activity_date }}
+				</td>
+			</tr>
+			{% endfor %}
+
+		</tbody>
+</table>
+<div>{{life}}</div>
+{% if chart %}
+<p id='hist'> <img src="data:image/png;base64, {{chart|safe}}"> </p>
+{% endif %}
+
+  
+  <fieldset>  
+  <ul>
+    <li>
+      <label for="Choice1">Log X axis</label>      		
+      <input checked type="checkbox" id="log_x" name="Choice" value="log_x">
+    </li>
+    <li>
+      <label for="Choice2">Log Y axis</label>
+      <input checked type="checkbox" id="log_y" name="Choice" value="log_y">
+    </li>    
+  </ul>
+</fieldset>
+
+  
+ 
+<ul id='list'>
+	<li>Rolling Retention {{X}} day = {{metrics}}%</li>
+	<li>Median = {{median}}</li>
+	<li>Mean = {{mean}}</li>
+	<li>Percentile<sub>10</sub> = {{q10}}</li>
+	<li>Percentile<sub>90</sub> = {{q90}}</li>
+</ul>
+<a href="{% url 'index' %}"><input class='btn' type="submit" value="BACK" id="back" /></a>
+{% endblock %}
+

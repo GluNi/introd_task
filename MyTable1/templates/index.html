@@ -1,0 +1,60 @@
+{% extends "base_generic.html" %}
+
+  	{% block content %}
+	<header class='header'>
+
+			<div id='logo'>
+				<a href='#'>AB TEST REAL</a>
+			</div>
+
+			<div id="search">
+				<input id="inp" type="search" placeholder="Search">
+
+			</div>
+	</header>
+	<div id="inf">
+		Data sent ({{ num_id }} field(s))
+	</div>
+
+  <form class="Form1" method ="post" action="/MyTable1/dataret" enctype="application/x-www-form-urlencoded"> {% csrf_token %}
+
+	<table>
+		<thead>
+			<tr>
+				<th>UserID</th>
+				<th>Registration Date</th>
+				<th>Last Activity Date</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for mydata in mydata_list %}
+			<tr class="ID1">
+				<td>{{ mydata.id }}</td>
+				<td>
+					{{ mydata.registration_date }}
+				</td>
+				<td>
+					{{ mydata.last_activity_date }}
+				</td>
+			</tr>
+			{% endfor %}
+
+			<tr class="ID1">
+				<td>{{ num_id }}</td>
+				<td>
+					<input required type="date" name="Registration" class="ID1 registration"/>
+				</td>
+				<td>
+					<input required type="date" name="Last Activity" class="ID1 LastActivity"/>
+				</td>
+			</tr>			
+		</tbody>
+	</table>
+
+  <input class='btn' type="submit" value="SAVE" id="save" />
+
+ </form>
+
+  <a href="{% url 'metrics' %}"><input class='btn' type="submit" value="CALCULATE" id="calculate" /></a>
+{% endblock %}
+
