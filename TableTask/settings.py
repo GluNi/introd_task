@@ -29,7 +29,7 @@ SECRET_KEY = 'latwfx71=hd#95n73liokl%ga!goz^8&!%)4(n=1fpo@k-r88p'
 DEBUG = True
 #DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['.herokuapp.com']
+ALLOWED_HOSTS = ['your_app_name.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -148,6 +148,8 @@ STATIC_URL = '/static/'
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-STATICFILES_DIRS = []
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, '../MyTable1/static'),
+    )
 
 django_heroku.settings(locals())
