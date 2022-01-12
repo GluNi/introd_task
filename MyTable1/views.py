@@ -25,13 +25,20 @@ def metrics(request):
             num_return_X += 1
         if (now.toordinal() - mydata.registration_date.toordinal()) >= X:
             num_log_in_X +=1
-
-    metrics = round((num_return_X/num_log_in_X)*100, 2)    
-    q10 = round(np.percentile(x, 10), 2)
-    q90 = round(np.percentile(x, 90), 2)
-    mean=round(statistics.mean(x), 2) 
-    median=round(statistics.median(x), 2)     
-    chart = get_plot(x)      
+            
+    if len(x)>0:
+        q10 = round(np.percentile(x, 10), 2)
+        q90 = round(np.percentile(x, 90), 2)
+        mean=round(statistics.mean(x), 2)
+        median=round(statistics.median(x), 2)
+        chart = get_plot(x)
+        lenx = len(x)
+        if num_log_in_X>0:
+           metrics = round((num_return_X/num_log_in_X)*100, 2)
+        else:
+           metrics = 'Impossible to calculate'
+    else:
+        return render(request, 'data_list.html')             
     return render(request, 'data_list.html', {'mydata_list': mydata_list,
                                               'now': now,
                                               'X': X,
@@ -40,7 +47,8 @@ def metrics(request):
                                               'q90': q90,
                                               'mean': mean,
                                               'median': median,
-                                              'chart': chart
+                                              'chart': chart,
+                                              'lenx': lenx,
                                               })
 
 

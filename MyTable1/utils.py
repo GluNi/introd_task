@@ -19,7 +19,7 @@ def get_graph():
 def get_plot(x):
     plt.switch_backend('AGG')     
     plt.plot(x)
-    fig, ax = plt.subplots(figsize =(8, 4), tight_layout = True)
+    fig, ax = plt.subplots(figsize =(8, 4), tight_layout = True)    
     q25, q75 = np.percentile(x, [25, 75])
     bin_width = 2 * (q75 - q25) * len(x) ** (-1/3)
     bins = round((max(x) - min(x)) / bin_width)     

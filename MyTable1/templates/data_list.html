@@ -5,7 +5,7 @@
 	<header class='header'>
 
 			<div id='logo'>
-				<a href='#'>AB TEST REAL</a>
+				<a href="{% url 'index' %}">AB TEST REAL</a>
 			</div>
 
 			<div id="search">
@@ -13,7 +13,7 @@
 
 			</div>
 	</header>
-<div id='inf'>Data has been successfully saved on {{now}} </div>
+<div id="inf">Data has been successfully saved on {{now}} </div>
 <table>
 		<thead>
 			<tr>
@@ -37,34 +37,36 @@
 
 		</tbody>
 </table>
-<div>{{life}}</div>
-{% if chart %}
-<p id='hist'> <img src="data:image/png;base64, {{chart|safe}}"> </p>
-{% endif %}
 
-  
-  <fieldset>  
-  <ul>
-    <li>
+{% if chart %}
+	<div class='inf'> <img src="data:image/png;base64, {{chart|safe}}" alt="Histogram"> </div>
+
+  <fieldset class='inf'>  
+  	<ul>
+   	 <li>
       <label for="Choice1">Log X axis</label>      		
       <input checked type="checkbox" id="log_x" name="Choice" value="log_x">
-    </li>
-    <li>
+   	 </li>
+     <li>
       <label for="Choice2">Log Y axis</label>
       <input checked type="checkbox" id="log_y" name="Choice" value="log_y">
-    </li>    
-  </ul>
-</fieldset>
-
+   	 </li>    
+  	</ul>
+   </fieldset>
+{% endif %}
   
- 
-<ul id='list'>
-	<li>Rolling Retention {{X}} day = {{metrics}}%</li>
-	<li>Median = {{median}}</li>
-	<li>Mean = {{mean}}</li>
-	<li>Percentile<sub>10</sub> = {{q10}}</li>
-	<li>Percentile<sub>90</sub> = {{q90}}</li>
-</ul>
-<a href="{% url 'index' %}"><input class='btn' type="submit" value="BACK" id="back" /></a>
+{% if lenx > 0 %}
+	<ul class='inf'>
+		<li>Rolling Retention {{X}} day = {{metrics}}%</li>
+		<li>Median = {{median}}</li>
+		<li>Mean = {{mean}}</li>
+		<li>Percentile<sub>10</sub> = {{q10}}</li>
+		<li>Percentile<sub>90</sub> = {{q90}}</li>
+	</ul>
+{% else %}
+	<div class='inf'>Not enough data to calculate</div>
+{% endif %}
+
+<a href="{% url 'index' %}"><input class='inf' type="submit" value="BACK" id="back" /></a>
 {% endblock %}
 
